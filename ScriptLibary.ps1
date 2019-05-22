@@ -38,7 +38,7 @@ function Write-HostHelper {
     } # End Begin
     process {
         foreach ($item in 1..$numberOfItem) {
-            Write-cHost $writeWith -NoNewline -Color $Color
+            Write-Screen $writeWith -NoNewline -Color $Color
         }
     } # End Process
     end {} # End End
@@ -57,7 +57,7 @@ function Get-TimeStamp {
     } # End end
 }
 
-function Write-cHost {
+function Write-Screen {
     param (
         [alias ('t')] [String[]]$Text,
         [alias ('c')] [ConsoleColor[]]$Color = (get-host).ui.rawui.ForegroundColor,
@@ -74,14 +74,14 @@ function Write-cHost {
     )
     begin {
         if ($showTime) {Get-TimeStamp -out}
-        if ($tab) {Write-cHost -Text " "  -noNewLine}
-        if ($info) {Write-cHost -Text '[info]' -Color Cyan -noNewLine}
-        if ($warning) {Write-cHost -Text '[warning]' -Color Yellow -noNewLine ; $color = [ConsoleColor]::Yellow}
-        if ($err) {Write-cHost -Text '[err]' -Color DarkRed -noNewLine ; $color = [ConsoleColor]::Red}
-        if ($task) {Write-cHost -Text '[task]' -Color Magenta -noNewLine}
-        if ($pass) {Write-cHost -Text '[pass]' -Color Green -noNewLine; $color = [ConsoleColor]::Green }
-        if ($fail) {Write-cHost -Text '[fail]' -Color Red -noNewLine; $color = [ConsoleColor]::Red}
-        if ($progress) {Write-cHost -Text '[progress]' -Color White -noNewLine}
+        if ($tab) {Write-Screen -Text " "  -noNewLine}
+        if ($info) {Write-Screen -Text '[info]' -Color Cyan -noNewLine}
+        if ($warning) {Write-Screen -Text '[warning]' -Color Yellow -noNewLine ; $color = [ConsoleColor]::Yellow}
+        if ($err) {Write-Screen -Text '[err]' -Color DarkRed -noNewLine ; $color = [ConsoleColor]::Red}
+        if ($task) {Write-Screen -Text '[task]' -Color Magenta -noNewLine}
+        if ($pass) {Write-Screen -Text '[pass]' -Color Green -noNewLine; $color = [ConsoleColor]::Green }
+        if ($fail) {Write-Screen -Text '[fail]' -Color Red -noNewLine; $color = [ConsoleColor]::Red}
+        if ($progress) {Write-Screen -Text '[progress]' -Color White -noNewLine}
     }
     process {
         if ($Text.count -eq 0) {
@@ -101,7 +101,7 @@ function Write-cHost {
         }
     } # End Process
     end {
-        if ($pass) {Write-cHost -Text '... Done' -Color Green -noNewLine}
+        if ($pass) {Write-Screen -Text '... Done' -Color Green -noNewLine}
         if (!$noNewLine) {Write-Host}
     }
 }
@@ -124,7 +124,7 @@ function Write-Line {
         } # End  if ( $numberOfItem -eq 0 )
     } # End begin
     process {
-        Write-cHost -Text "$($WriteWith*$numberOfItem)" -Color $Color
+        Write-Screen -Text "$($WriteWith*$numberOfItem)" -Color $Color
     }
     end {}
 }
@@ -139,7 +139,7 @@ function Write-Header {
     }
     process {
         Get-TimeStamp -out ; Write-HostHelper -Color $Color -writeWith '----'
-        Write-cHost -Text $Text -Color $Color
+        Write-Screen -Text $Text -Color $Color
     }
     end {
         Get-TimeStamp -out ; Write-Line -Color $Color
@@ -170,26 +170,26 @@ function Split-File {
         # Create split folder
         $splitFolder = $path.Directory, $path.BaseName -join '\'
         if (Test-Path $splitFolder) {
-            Write-cHost -showTime -warning "Split folder exists"
+            Write-Screen -showTime -warning "Split folder exists"
             $task = "Starting clean up and re-initiate"
-            Write-cHost -showTime -task $task
+            Write-Screen -showTime -task $task
             $NULL = Remove-Item $splitFolder -Recurse -Force
         }
         else {
             $task = "Starting create split folder"
-            Write-cHost -showTime -task $task
+            Write-Screen -showTime -task $task
         }
         $NULL = New-Item -Path $splitFolder -ItemType Directory -Force
-        Write-cHost -showTime -pass $task
+        Write-Screen -showTime -pass $task
 
     } # End begin
     Process {
-        Write-cHost -showTime -info "Reading into file content"
+        Write-Screen -showTime -info "Reading into file content"
         $content = Get-Content -path $path -ReadCount $lines
-        Write-cHost -showTime -info 'The file will be splited into', ($content.count), 'sub files' -Color $cc, cyan, $cc
+        Write-Screen -showTime -info 'The file will be splited into', ($content.count), 'sub files' -Color $cc, cyan, $cc
 
         $task = 'Starting file split..'
-        Write-cHost -showTime -task $task
+        Write-Screen -showTime -task $task
         $leadingZero = Get-LeadingZero ($content.count)
         $totalJobs = 0
         $content | ForEach-Object {
@@ -199,9 +199,9 @@ function Split-File {
                  $content = $args[0]
                  $splitFilePath = $args[1]
                  $splitFile = New-Item -Path $splitFilePath -ItemType File -Force
-                 Write-cHost -showTime -info "Working on $($splitFile.BaseName)"
+                 Write-Screen -showTime -info "Working on $($splitFile.BaseName)"
                  $content | Add-Content -Path $splitFilePath -Force
-                 Write-cHost -showTime -info "[$($splitFile.BaseName)] is now ready"
+                 Write-Screen -showTime -info "[$($splitFile.BaseName)] is now ready"
              } -ArgumentList @($_,$splitFilePath)
             $totalJobs++
         }
@@ -218,13 +218,13 @@ function Split-File {
                 $finishJobs | Remove-Job
                 [int]$percent = $finishJobsCount/($totalJobs)*100
                 Write-Progress -activity 'Working' -percentComplete ($percent)
-                Write-cHost -showTime -progress "$finishJobsCount/$totalJobs  $percent%"
+                Write-Screen -showTime -progress "$finishJobsCount/$totalJobs  $percent%"
                 Start-Sleep -Milliseconds 1000
             }
         }
         Write-Progress -activity 'Working' -percentComplete (100)
-        Write-cHost -showTime -progress "$totalJobs/$totalJobs  100%"
-        Write-cHost -showTime -pass $task
+        Write-Screen -showTime -progress "$totalJobs/$totalJobs  100%"
+        Write-Screen -showTime -pass $task
     } # End Process
     End { } # End End
 }
