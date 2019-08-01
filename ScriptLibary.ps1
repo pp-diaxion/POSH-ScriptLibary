@@ -78,7 +78,7 @@ function Write-Screen {
         if ($info) {Write-Screen -Text '[info]' -Color Cyan -noNewLine}
         if ($warning) {Write-Screen -Text '[warning]' -Color Yellow -noNewLine ; $color = [ConsoleColor]::Yellow}
         if ($err) {Write-Screen -Text '[err]' -Color DarkRed -noNewLine ; $color = [ConsoleColor]::Red}
-        if ($task) {Write-Screen -Text '[task]' -Color Magenta -noNewLine}
+        if ($task) {Write-Screen -Text '[task] Processing ' -Color Magenta -noNewLine}
         if ($pass) {Write-Screen -Text '[pass]' -Color Green -noNewLine; $color = [ConsoleColor]::Green }
         if ($fail) {Write-Screen -Text '[fail]' -Color Red -noNewLine; $color = [ConsoleColor]::Red}
         if ($progress) {Write-Screen -Text '[progress]' -Color White -noNewLine}
