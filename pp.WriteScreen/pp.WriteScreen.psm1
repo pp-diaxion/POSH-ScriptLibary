@@ -13,7 +13,7 @@ function Write-TimeStamp {
 function Write-Screen {
     param (
         [alias ('t')] [String[]]$Text,
-        [alias ('c')] [ConsoleColor[]]$Color = (get-host).ui.rawui.ForegroundColor,
+        [alias ('c')] [ConsoleColor[]]$Color = [ConsoleColor]'Gray',
         [switch] $showTime,
         [switch] $noNewLine,
         [switch] $info,

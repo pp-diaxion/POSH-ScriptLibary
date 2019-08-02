@@ -19,7 +19,6 @@ function Add-LeadingZero {
 }
 
 
-
 function Write-HostHelper {
     param (
         [ConsoleColor[]]$Color = (get-host).ui.rawui.ForegroundColor,
