@@ -22,7 +22,7 @@ function Add-LeadingZero {
 function Get-CurrentMonthPeriod {
     $currDate = Get-Date
     $firstDayFull = Get-Date $currDate -Day 1 -Hour 0 -Minute 0 -Second 0
-    $lastDayFull = Get-Date $firstDay.AddMonths(1).AddSeconds(-1)
+    $lastDayFull = Get-Date $firstDayFull.AddMonths(1).AddSeconds(-1)
 
     $pro = @{
         start = Get-Date $firstDayFull -Format 'yyyy-MM-dd'
@@ -31,6 +31,7 @@ function Get-CurrentMonthPeriod {
 
     Return (new-object -TypeName PSObject -Property $pro)
 }
+
 
 
 function Split-File {
