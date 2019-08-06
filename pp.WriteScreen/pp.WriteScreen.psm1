@@ -31,9 +31,9 @@ function Write-Screen {
         if ($info) { Write-Screen -Text '[info]'     -noNewLine -Color Cyan }
         if ($warning) { Write-Screen -Text '[warning]'  -noNewLine -Color Yellow ; $color = [ConsoleColor]::Yellow }
         if ($err) { Write-Screen -Text '[err]'      -noNewLine -Color DarkRed; $color = [ConsoleColor]::Red }
-        if ($task) { Write-Screen -Text '[task]'     -noNewLine -Color Blue }
-        if ($pass) { Write-Screen -Text '[pass]'     -noNewLine -Color Green  ; $color = [ConsoleColor]::Green }
-        if ($fail) { Write-Screen -Text '[fail]'     -noNewLine -Color Red    ; $color = [ConsoleColor]::Red }
+        if ($task) { Write-Screen -Text '[task] Processing: '     -noNewLine -Color Blue }
+        if ($pass) { Write-Screen -Text '[pass] Completed successfully '     -noNewLine -Color Green  ; $color = [ConsoleColor]::Green }
+        if ($fail) { Write-Screen -Text '[fail] Failed to '     -noNewLine -Color Red    ; $color = [ConsoleColor]::Red }
         if ($progress) { Write-Screen -Text '[progress]' -noNewLine -Color White }
     }
     process {
@@ -41,7 +41,7 @@ function Write-Screen {
             Write-Host
         } # End if
         else {
-            foreach ($i in 0..($Text.count - 1)) {  
+            foreach ($i in 0..($Text.count - 1)) {
                 if ($NULL -eq $Color[$i]) {
                     $ForegroundColor = (get-host).ui.rawui.ForegroundColor
                 } # End if
