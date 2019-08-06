@@ -14,7 +14,7 @@ function Write-Screen {
     param (
         [alias ('t')] [String[]]$Text,
         [alias ('c')] [ConsoleColor[]]$Color = [ConsoleColor]'Gray',
-        [switch] $showTime,
+        [switch] $notShowTime,
         [switch] $noNewLine,
         [switch] $info,
         [switch] $warning,
@@ -26,7 +26,7 @@ function Write-Screen {
         [switch] $tab
     )
     begin {
-        if ($showTime) { Get-TimeStamp -out }
+        if (!$NotShowTime) { Get-TimeStamp -out }
         if ($tab) { Write-Screen -Text " "          -noNewLine }
         if ($info) { Write-Screen -Text '[info]'     -noNewLine -Color Cyan }
         if ($warning) { Write-Screen -Text '[warning]'  -noNewLine -Color Yellow ; $color = [ConsoleColor]::Yellow }
