@@ -55,7 +55,7 @@ function Write-Screen {
     } # End Process
     end {
         if ($pass) { Write-Screen -Text '... Completed' -Color Green -noNewLine }
-        if ($fail) { Write-Screen -Text '... Failed' -Color Red -noNewLine }
+        if ($fail) { Write-Screen -Text '... Failed' -Color Red -noNewLine ; Write-Screen -err $Error[0] }
         if (!$noNewLine) { Write-Host }
     }
 }
