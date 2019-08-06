@@ -32,8 +32,8 @@ function Write-Screen {
         if ($warning) { Write-Screen -Text '[warning]'  -noNewLine -Color Yellow ; $color = [ConsoleColor]::Yellow }
         if ($err) { Write-Screen -Text '[err]'      -noNewLine -Color DarkRed; $color = [ConsoleColor]::Red }
         if ($task) { Write-Screen -Text '[task] Processing: '     -noNewLine -Color Blue }
-        if ($pass) { Write-Screen -Text '[pass] Completed successfully '     -noNewLine -Color Green  ; $color = [ConsoleColor]::Green }
-        if ($fail) { Write-Screen -Text '[fail] Failed to '     -noNewLine -Color Red    ; $color = [ConsoleColor]::Red }
+        if ($pass) { Write-Screen -Text '[pass] '     -noNewLine -Color Green  ; $color = [ConsoleColor]::Green }
+        if ($fail) { Write-Screen -Text '[fail] '     -noNewLine -Color Red    ; $color = [ConsoleColor]::Red }
         if ($progress) { Write-Screen -Text '[progress]' -noNewLine -Color White }
     }
     process {
@@ -55,6 +55,7 @@ function Write-Screen {
     } # End Process
     end {
         if ($pass) { Write-Screen -Text '... Completed' -Color Green -noNewLine }
+        if ($fail) { Write-Screen -Text '... Failed' -Color Red -noNewLine }
         if (!$noNewLine) { Write-Host }
     }
 }
