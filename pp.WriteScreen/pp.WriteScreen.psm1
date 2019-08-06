@@ -43,7 +43,7 @@ function Write-Screen {
         else {
             foreach ($i in 0..($Text.count - 1)) {
                 if ($NULL -eq $Color[$i]) {
-                    $ForegroundColor = (get-host).ui.rawui.ForegroundColor
+                    $ForegroundColor = [ConsoleColor]'Gray'
                 } # End if
                 else {
                     $ForegroundColor = $Color[$i]
@@ -54,6 +54,7 @@ function Write-Screen {
         } # End if else
     } # End Process
     end {
+        if ($task) { Write-Screen -Text '... Processing' -Color Blue -noNewLine }
         if ($pass) { Write-Screen -Text '... Completed' -Color Green -noNewLine }
         if ($fail) { Write-Screen -Text '... Failed' -Color Red -noNewLine }
         if (!$noNewLine) { Write-Host }
