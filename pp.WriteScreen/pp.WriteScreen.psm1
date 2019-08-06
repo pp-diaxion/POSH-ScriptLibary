@@ -41,7 +41,7 @@ function Write-Screen {
             Write-Host
         } # End if
         else {
-            foreach ($i in 0..($Text.count - 1)) {
+            foreach ($i in 0..($Text.count - 1)) {  
                 if ($NULL -eq $Color[$i]) {
                     $ForegroundColor = (get-host).ui.rawui.ForegroundColor
                 } # End if
