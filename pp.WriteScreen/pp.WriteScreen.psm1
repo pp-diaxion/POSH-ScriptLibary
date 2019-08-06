@@ -28,7 +28,7 @@ function Write-Screen {
     begin {
         if ($showTime) { Write-TimeStamp -out }
         if ($tab) { Write-Screen -Text "`t" -noNewLine }
-        if ($info) { Write-Screen -Text '[info]' -noNewLine -Color Cyan ; $color = Cyan }
+        if ($info) { Write-Screen -Text '[info]' -noNewLine -Color Cyan ; $color = [ConsoleColor]::Cyan }
         if ($warning) { Write-Screen -Text '[warning]' -noNewLine -Color Yellow } #; $color = [ConsoleColor]::Yellow }
         if ($err) { Write-Screen -Text '[err]' -noNewLine -Color DarkRed } #; $color = [ConsoleColor]::Red }
         if ($task) { Write-Screen -Text '[task]' -noNewLine -Color Blue }
