@@ -29,11 +29,11 @@ function Write-Screen {
         if ($showTime) { Write-TimeStamp -out }
         if ($tab) { Write-Screen -Text " "          -noNewLine }
         if ($info) { Write-Screen -Text '[info]'     -noNewLine -Color Cyan }
-        if ($warning) { Write-Screen -Text '[warning]'  -noNewLine -Color Yellow ; $color = [ConsoleColor]::Yellow }
-        if ($err) { Write-Screen -Text '[err]'      -noNewLine -Color DarkRed; $color = [ConsoleColor]::Red }
+        if ($warning) { Write-Screen -Text '[warning]'  -noNewLine -Color Yellow} #; $color = [ConsoleColor]::Yellow }
+        if ($err) { Write-Screen -Text '[err]'      -noNewLine -Color DarkRed} #; $color = [ConsoleColor]::Red }
         if ($task) { Write-Screen -Text '[task]'     -noNewLine -Color Blue }
-        if ($pass) { Write-Screen -Text '[pass]'     -noNewLine -Color Green  ; $color = [ConsoleColor]::Green }
-        if ($fail) { Write-Screen -Text '[fail]'     -noNewLine -Color Red    ; $color = [ConsoleColor]::Red }
+        if ($pass) { Write-Screen -Text '[pass]'     -noNewLine -Color Green}  #; $color = [ConsoleColor]::Green }
+        if ($fail) { Write-Screen -Text '[fail]'     -noNewLine -Color Red  }  #; $color = [ConsoleColor]::Red }
         if ($progress) { Write-Screen -Text '[progress]' -noNewLine -Color White }
     }
     process {
