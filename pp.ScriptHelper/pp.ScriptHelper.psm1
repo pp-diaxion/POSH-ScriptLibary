@@ -19,6 +19,22 @@ function Add-LeadingZero {
 }
 
 
+function Test-EmailAddress {
+    param (
+        [string]$emailAddress
+    )
+    $emailRegEx = "^[a-zA-Z0-9.!£#$%&'^_`{}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+
+    $result
+    if ($mailAddress -cnotmatch $emailRegEx) {
+        $result = $false
+    }
+    else {
+        $result = $true
+    }
+    return $result
+}
+
 function Get-CurrentMonthPeriod {
     $currDate = Get-Date
     $firstDayFull = Get-Date $currDate -Day 1 -Hour 0 -Minute 0 -Second 0
