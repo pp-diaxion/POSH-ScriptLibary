@@ -35,9 +35,12 @@ function Test-EmailAddress {
     return $result
 }
 
-function Get-CurrentMonthPeriod {
-    $currDate = Get-Date
-    $firstDayFull = Get-Date $currDate -Day 1 -Hour 0 -Minute 0 -Second 0
+function Get-MonthStartAndEndDate {
+    param(
+        [int]$AddMonth = 0
+    )
+    $Date = (Get-Date).AddMonths($AddMonth)
+    $firstDayFull = Get-Date $Date -Day 1 -Hour 0 -Minute 0 -Second 0
     $lastDayFull = Get-Date $firstDayFull.AddMonths(1).AddSeconds(-1)
 
     $pro = @{
@@ -47,7 +50,6 @@ function Get-CurrentMonthPeriod {
 
     Return (new-object -TypeName PSObject -Property $pro)
 }
-
 
 
 function Split-File {
